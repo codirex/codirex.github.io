@@ -1,0 +1,73 @@
+# اسم الـ Workflow: نشر تطبيق React على GitHub Pages
+name: Deploy React App to GitHub Pages
+
+on:
+  # يعمل عند الدفع (push) إلى الفرع الرئيسي (تأكد من أن اسم الفرع صحيح)
+  push:
+    branches: ["main"]
+
+  # يسمح بتشغيل هذا الـ workflow يدويًا من تبويب Actions
+  workflow_dispatch:
+
+# تعيين صلاحيات GITHUB_TOKEN للسماح بالنشر إلى GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# السماح بنشر واحد متزامن فقط، وتخطي العمليات المنتظرة بين العملية قيد التنفيذ وآخر عملية منتظرة.
+# مع عدم إلغاء العمليات قيد التنفيذ للسماح بإكمال عمليات النشر هذه.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # مهمة البناء
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        # سحب الكود من المستودع
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        # إعداد بيئة Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # استخدام إصدار LTS حديث
+          cache: 'npm'
+      - name: Install dependencies
+        # تثبيت الاعتماديات باستخدام npm ci (أسرع وأكثر موثوقية في بيئات CI)
+        run: npm ci
+      - name: Build
+        # تشغيل أمر البناء (يفترض أن المخرجات تكون في مجلد 'build')
+        run: npm run build
+        env:
+          # إذا لم يتم نشر التطبيق على جذر النطاق (مثل username.github.io/repo-name/)
+          # يجب تعيين "homepage" في package.json أو استخدام PUBLIC_URL هنا.
+          # مثال: PUBLIC_URL: /your-repo-name/
+          # الأفضل استخدام متغير المستودع (Repository variable) المسمى PUBLIC_URL إذا لزم الأمر.
+          PUBLIC_URL: ${{ vars.PUBLIC_URL || '.' }}
+      - name: Setup Pages
+        # إعداد GitHub Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        # رفع مجلد البناء كـ artifact للنشر
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # رفع محتويات مجلد build
+          path: './build'
+
+  # مهمة النشر
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    # تعتمد على إكمال مهمة البناء بنجاح
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        # نشر الـ artifact إلى GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
