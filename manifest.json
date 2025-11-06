@@ -13,8 +13,8 @@
       "sizes": "192x192"
     }
   ],
-  "start_url": "/my-website/",
-  "scope": "/my-website/",
+  "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
