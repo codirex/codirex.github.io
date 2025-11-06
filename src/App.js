@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, CssBaseline, Container } from "@mui/material";
 import Navbar from "./assets/components/Navbar"
 import Footer from "./assets/components/Footer"
