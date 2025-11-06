@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import logo from "../images/logo.png"
 
 export default function Navbar() {
   return (
@@ -7,7 +8,7 @@ export default function Navbar() {
       <Toolbar>
         <Box
           component="img"
-          src="../images/logo.png"
+          src={logo}
           alt="Logo"
           sx={{
             height: 40,
