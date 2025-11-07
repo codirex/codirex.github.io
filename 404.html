@@ -7,9 +7,8 @@
   </head>
   <body>
     <script>
-      // Redirect to React App with the path the user tried to access
-      var redirect = window.location.pathname;
-      window.location.replace("/" + redirect);
+      // أي صفحة غير موجودة تتحول مباشرة ل /#/notfound
+      window.location.replace("/#/notfound");
     </script>
   </body>
 </html>
