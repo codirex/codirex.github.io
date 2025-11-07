@@ -29,7 +29,7 @@ export default function Navbar() {
     <>
       <AppBar position="static">
         <Toolbar>
-          if (isMobile)
+          if ({isMobile})
           {
             <IconButton onClick={toggleDrawer}>
               <MenuIcon />
@@ -45,7 +45,7 @@ export default function Navbar() {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          if (!isMobile){" "}
+          if ({!isMobile})
           {
             <Box>
               {navItems.map((page) => (
