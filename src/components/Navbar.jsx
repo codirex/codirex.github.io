@@ -12,9 +12,12 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-import React from "react";
+import React, { useContext } from "react";
+import NavTitleContext from "../context/NavTitleContext";
+import Logo from "../assets/images/logo.png";
 
-export default function Navbar({ title }) {
+export default function Navbar() {
+  const { title } = useContext(NavTitleContext);
   const isMobile = useMediaQuery("(max-width:768px)");
 
   const [open, setOpen] = React.useState(false);
@@ -26,15 +29,24 @@ export default function Navbar({ title }) {
     <>
       <AppBar position="static">
         <Toolbar>
+          if (isMobile)
+          {
+            <IconButton onClick={toggleDrawer}>
+              <MenuIcon />
+            </IconButton>
+          }
+          <Box
+            sx={{ width: 48, height: 48, marginX: 2 }}
+            component="img"
+            src={Logo}
+            alt="logo"
+            loading="lazy"
+          />
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-
-          {isMobile ? (
-            <IconButton color="inherit" onClick={toggleDrawer}>
-              <MenuIcon />
-            </IconButton>
-          ) : (
+          if (!isMobile){" "}
+          {
             <Box>
               {navItems.map((page) => (
                 <Button
@@ -47,7 +59,7 @@ export default function Navbar({ title }) {
                 </Button>
               ))}
             </Box>
-          )}
+          }
         </Toolbar>
       </AppBar>
 
@@ -57,6 +69,7 @@ export default function Navbar({ title }) {
             {navItems.map((item) => (
               <ListItem
                 key={item}
+                color="inherit"
                 component={Link}
                 to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
               >
