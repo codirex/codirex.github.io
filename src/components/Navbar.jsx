@@ -13,7 +13,7 @@ import {
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useContext } from "react";
-import NavTitleContext from "../context/NavTitleContext";
+import { NavTitleContext } from "../context/NavTitleContext";
 import Logo from "../assets/images/logo.png";
 
 export default function Navbar() {
@@ -29,12 +29,12 @@ export default function Navbar() {
     <>
       <AppBar position="static">
         <Toolbar>
-          if ({isMobile})
-          {
+          {isMobile && (
             <IconButton onClick={toggleDrawer}>
               <MenuIcon />
             </IconButton>
-          }
+          )}
+
           <Box
             sx={{ width: 48, height: 48, marginX: 2 }}
             component="img"
@@ -45,8 +45,8 @@ export default function Navbar() {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          if ({!isMobile})
-          {
+
+          {!isMobile && (
             <Box>
               {navItems.map((page) => (
                 <Button
@@ -59,7 +59,7 @@ export default function Navbar() {
                 </Button>
               ))}
             </Box>
-          }
+          )}
         </Toolbar>
       </AppBar>
 

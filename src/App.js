@@ -9,7 +9,7 @@ import Blog from "./pages/Blog"
 import Contact from "./pages/Contact"
 import About from "./pages/About"
 import theme from "./theme";
-import NavTitleProvider from "./context/NavTitleContext"
+import {NavTitleProvider} from "./context/NavTitleContext"
 
 function App() {
   return (
