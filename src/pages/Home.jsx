@@ -1,5 +1,11 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export default function Home(){
-    return <Box/>;
+    return (
+    <Box>
+        <Typography>
+            {process.env.REACT_APP_SUPABASE_URL}
+        </Typography>
+    </Box>
+    );
 }

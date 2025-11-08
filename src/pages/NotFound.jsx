@@ -20,10 +20,11 @@ export default function NotFound() {
         justifyContent: "center",
         textAlign: "center",
         p: 2,
+        backgroundColor: "primary.main"
       }}
     >
       <DotLottieReact
-        src={NotFoundLottie}
+        src="../assets/lottie/404NotFound.json"
         height={{xs: 300, sm: 400, md: 500}}
         width={{xs: 300, sm: 400, md: 500}}
         loop
